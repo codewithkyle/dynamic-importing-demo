@@ -1,0 +1,63 @@
+{
+  "name": "codwithkyle-sandbox-framework",
+  "version": "0.0.3",
+  "description": "A simple framework for building unique elements in a sandbox environment.",
+  "author": "Kyle Andrews",
+  "contributors": [
+    "Kyle Andrews (http://codewithkyle.com)"
+  ],
+  "main": "./docs/index.html",
+  "typings": "./app/typescript/global.d.ts",
+  "scripts": {
+    "dev": "run-p watch:*",
+    "dev:typescript": "tsc && npm run dev:webpack",
+    "dev:webpack": "webpack",
+    "dev:sass": "node-sass ./app/sass/dev.scss ./docs/assets/main.css",
+    "compile": "npm-run-all compile:*",
+    "compile:typescript": "tsc",
+    "compile:webpack": "webpack",
+    "compile:scss": "node-sass ./app/sass/production.scss ./docs/assets/main.css --output-style compressed",
+    "preview": "http-server ./docs",
+    "test": "npm-run-all compile:* && npm run preview",
+    "lint": "npm-run-all lint:*",
+    "lint:typescript": "tslint -c .tslintrc.js -p tsconfig.json -t verbose",
+    "lint:sass": "stylelint ./app/sass/**/*.scss --cache",
+    "watch:typescript": "watch \"npm run dev:typescript\" ./app/typescript",
+    "watch:sass": "watch \"npm run dev:sass\" ./app/sass",
+    "watch:sync": "node ./sync.js"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "linters": {
+      "app/typescript/**.*.ts": "npm run lint:typescript",
+      "app/sass/**/*.scss": "npm run lint:sass"
+    }
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "browser-sync": "^2.26.3",
+    "http-server": "^0.11.1",
+    "husky": "^1.3.1",
+    "lint-staged": "^8.1.3",
+    "node-sass": "^4.11.0",
+    "npm": "^6.7.0",
+    "npm-run-all": "^4.1.5",
+    "stylelint": "^9.10.1",
+    "stylelint-config-recommended-scss": "^3.2.0",
+    "stylelint-scss": "^3.5.2",
+    "tslint": "^5.12.1",
+    "tslint-config-airbnb": "^5.11.1",
+    "tslint-config-prettier": "^1.18.0",
+    "typescript": "^3.3.1",
+    "watch": "^1.0.2",
+    "webpack-cli": "^3.2.3"
+  },
+  "dependencies": {
+    "animejs": "^3.0.1",
+    "webpack": "^4.29.6"
+  }
+}

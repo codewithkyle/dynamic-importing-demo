@@ -1,0 +1,54 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    
+    <title>Dynamic Importing Demo</title>
+
+    <link rel="stylesheet" href="./assets/main.css">
+
+    <script defer src="./assets/app.js"></script>
+
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            position: relative;
+            box-sizing: border-box;
+        }
+        body{
+            background-color: #F8F9FC;
+        }
+        section{
+            display: flex;
+            padding: 32px;
+            justify-content: center;
+            flex-flow: column wrap;
+        }
+        button{
+            border: none;
+            outline: none;
+            padding: 0 16px;
+            height: 36px;
+            line-height: 36px;
+            font-size: 14px;
+            text-transform: uppercase;
+            box-shadow: 0 2px 4px rgba(41,41,41,0.1);
+            cursor: pointer;
+        }
+        p{
+            margin-bottom: 32px;
+            line-height: 1.618;
+        }
+    </style>
+</head>
+<body>
+    <article>
+        <section>
+            <button class="js-load">Load Content</button>
+        </section>
+        <section class="js-container"></section>
+    </article>
+</body>
+</html>
