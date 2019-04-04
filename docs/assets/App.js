@@ -20,14 +20,19 @@ class App {
                 tempDocument.documentElement.innerHTML = responseText;
                 const newContainer = tempDocument.documentElement.querySelector('.js-container');
                 this._container.innerHTML = newContainer.innerHTML;
+                // If we already have the module just create a new instance of it
+                if (fileName === 'component.html' && typeof SampleModule === 'function') {
+                    new SampleModule();
+                    return;
+                }
                 const script = tempDocument.documentElement.querySelector('script');
                 const scriptReponse = yield fetch(script.src);
                 const scriptText = yield scriptReponse.text();
                 const newScript = document.createElement('script');
                 newScript.innerHTML = scriptText;
                 document.body.appendChild(newScript);
+                // If we're loading a module, create a new instance
                 if (fileName === 'component.html') {
-                    //@ts-ignore
                     new SampleModule();
                 }
             }))();
@@ -44,6 +49,17 @@ class App {
         for (let button of this._buttons) {
             button.addEventListener('click', this.handleLoad);
         }
+        /**
+         * Reporting Observer
+         * @see https://developers.google.com/web/updates/2018/07/reportingobserver
+         */
+        //@ts-ignore
+        const observer = new ReportingObserver((reports, observer) => {
+            for (const report of reports) {
+                console.log(report.type, report.url, report.body);
+            }
+        }, { buffered: true });
+        observer.observe();
     }
 }
 exports.default = App;

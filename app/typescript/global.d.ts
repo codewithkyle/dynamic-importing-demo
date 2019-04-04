@@ -5,3 +5,7 @@ declare module 'animejs';
 interface StreamlabsEvent{
     
 }
+
+declare class SampleModule{
+    
+}
