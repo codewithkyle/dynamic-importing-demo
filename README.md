@@ -1,5 +1,6 @@
 # Dynamic Importing Demo
 Testing the ability to dynamically import ES6 modules using the Fetch API and async/await.
+[View the demo](https://codewithkyle.github.io/dynamic-importing-demo/)
 
 ### How It Works
 When a button is clicked a fetch is sent to the server requesting the page content for the page associated with the button. When the server responds the application will create a temporary HTML document before injecting the new HTML into the `innerHTML` of the temporary document. This allows us to use `querySelector` to look for our `.js-container` class. Next we'll grab the current document's container and swap the `newContainer.innerHTML` with the `container.innerHTML`.
