@@ -8,7 +8,11 @@
 
     <link rel="stylesheet" href="./assets/main.css">
 
-    <script defer src="./assets/app.js"></script>
+    <script async src="./assets/app.js"></script>
+    <!-- <script defer src="./assets/runtime.js"></script> -->
+    <script>
+        var exports = {};
+    </script>
 
     <style>
         *{
@@ -25,6 +29,8 @@
             padding: 32px;
             justify-content: center;
             flex-flow: column wrap;
+            max-width: 840px;
+            margin: 0 auto;
         }
         button{
             border: none;
@@ -36,17 +42,34 @@
             text-transform: uppercase;
             box-shadow: 0 2px 4px rgba(41,41,41,0.1);
             cursor: pointer;
+            margin-bottom: 16px;
         }
         p{
             margin-bottom: 32px;
             line-height: 1.618;
+        }
+        .c-gallery{
+            width: 100%;
+            overflow-x: scroll;
+            scroll-snap-type: x mandatory;
+            display: block;
+            white-space: nowrap;
+        }
+        .c-gallery li{
+            display: inline-block;
+            width: 256px;
+            height: 158px;
+            background-color: rebeccapurple;
+            border-radius: 8px;
+            margin: 0 8px;
         }
     </style>
 </head>
 <body>
     <article>
         <section>
-            <button class="js-load">Load Content</button>
+            <button class="js-load" data-src="ajax.html">Load Ajax Test</button>
+            <button class="js-load" data-src="component.html">Load Component Test</button>
         </section>
         <section class="js-container"></section>
     </article>

@@ -1,42 +1,52 @@
 export default class App{
 
-    private _button:    HTMLButtonElement;
+    private _buttons:   Array<HTMLButtonElement>;
     private _container: HTMLElement;
 
     constructor(){
         this.init();
+        console.log('App started');
     }
 
     /**
      * Called when the class has be initiated
      */
     private init():void{
-        this._button    = document.body.querySelector('.js-load');
+        this._buttons   = Array.from(document.body.querySelectorAll('.js-load'));
         this._container = document.body.querySelector('.js-container');
 
-        this._button.addEventListener('click', this.handleLoad);
+        for(let button of this._buttons){
+            button.addEventListener('click', this.handleLoad);
+        }
     }
 
     private handleLoad:EventListener = (e:Event)=>{
-        fetch(`${ window.location.origin }/ajax.html`).then((response:Response)=>{
-            response.text().then((responseText)=>{
-                const tempDocument:HTMLDocument = document.implementation.createHTMLDocument('temp-doc');
-                tempDocument.documentElement.innerHTML = responseText;
+        const target = <HTMLElement>e.currentTarget;
+        const fileName = target.getAttribute('data-src');
+        (async ()=>{
+            const response = await fetch(`${ window.location.origin }/${ fileName }`);
+            const responseText = await response.text();
 
-                const newContainer = tempDocument.documentElement.querySelector('.js-container');
-                this._container.innerHTML = newContainer.innerHTML;
+            const tempDocument:HTMLDocument = document.implementation.createHTMLDocument('temp-doc');
+            tempDocument.documentElement.innerHTML = responseText;
+            
+            const newContainer = tempDocument.documentElement.querySelector('.js-container');
+            this._container.innerHTML = newContainer.innerHTML;
 
-                const script = tempDocument.documentElement.querySelector('script');
-                
-                fetch(script.src).then((response:Response)=>{
-                    response.text().then((responseText)=>{
-                        const newScript:HTMLScriptElement = document.createElement('script');
-                        newScript.innerHTML = responseText;
-                        document.body.appendChild(newScript);
-                    });
-                });
-            });
-        });
+            const script = tempDocument.documentElement.querySelector('script');
+
+            const scriptReponse = await fetch(script.src);
+            const scriptText = await scriptReponse.text();
+
+            const newScript:HTMLScriptElement = document.createElement('script');
+            newScript.innerHTML = scriptText;
+            document.body.appendChild(newScript);
+
+            if(fileName === 'component.html'){
+                //@ts-ignore
+                new SampleModule();
+            }
+        })();
     }
 }
 

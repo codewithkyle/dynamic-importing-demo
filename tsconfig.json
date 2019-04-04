@@ -1,13 +1,13 @@
 {
     "compilerOptions": {
-        "outDir": "./_compiled",
+        "outDir": "./docs/assets",
         "rootDir": "./app/typescript",
         "sourceMap": true,
         "noImplicitAny": true,
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true,
         "removeComments": false,
-        "target": "es5",
+        "target": "es6",
         "module": "commonjs",
         "moduleResolution": "node",
         "lib": [
