@@ -14,7 +14,7 @@ class App {
             const target = e.currentTarget;
             const fileName = target.getAttribute('data-src');
             (() => __awaiter(this, void 0, void 0, function* () {
-                const response = yield fetch(`${window.location.origin}/${fileName}`);
+                const response = yield fetch(`${window.location.origin}${window.location.pathname}${fileName}`);
                 const responseText = yield response.text();
                 const tempDocument = document.implementation.createHTMLDocument('temp-doc');
                 tempDocument.documentElement.innerHTML = responseText;

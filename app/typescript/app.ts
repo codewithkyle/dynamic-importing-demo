@@ -36,7 +36,7 @@ export default class App{
         const target = <HTMLElement>e.currentTarget;
         const fileName = target.getAttribute('data-src');
         (async ()=>{
-            const response = await fetch(`${ window.location.origin }/${ fileName }`);
+            const response = await fetch(`${ window.location.origin }${ window.location.pathname }${ fileName }`);
             const responseText = await response.text();
 
             const tempDocument:HTMLDocument = document.implementation.createHTMLDocument('temp-doc');
